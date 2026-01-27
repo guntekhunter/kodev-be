@@ -7,7 +7,7 @@ export const openapiSpec = {
     },
     servers: [
         {
-            url: "http://localhost:3000",
+            url: "https://kodev-be.vercel.app/",
         },
     ],
     paths: {
