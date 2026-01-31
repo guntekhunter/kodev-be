@@ -23,6 +23,10 @@ export const openapiSpec = {
                                 type: "object",
                                 required: ["email", "password"],
                                 properties: {
+                                    name: {
+                                        type: "string",
+                                        example: "hengki",
+                                    },
                                     email: {
                                         type: "string",
                                         example: "test@mail.com",

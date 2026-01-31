@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { email, password, fullName } = body;
+        const { email, password, fullName, name } = body;
+        const finalName = fullName || name;
 
-        if (!email || !password) {
+        if (!email || !password || !finalName) {
             return NextResponse.json(
                 { message: "Missing required fields" },
                 { status: 400 }
@@ -18,6 +19,9 @@ export async function POST(req: NextRequest) {
                 email,
                 password,
                 email_confirm: true,
+                user_metadata: {
+                    name: finalName,
+                },
             });
 
         if (error || !data.user) {
@@ -32,7 +36,7 @@ export async function POST(req: NextRequest) {
             .insert({
                 auth_id: data.user.id,
                 email: data.user.email,
-                full_name: fullName,
+                name: finalName,
             });
 
         if (insertError) {
